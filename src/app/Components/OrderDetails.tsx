@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from "react";
-import { rowsObject } from './constants'
-import CustomTable from './CustomTable'
+import { rowsObject } from '../constants'
+import CustomTable from './Table/CustomTable'
 
 export default function OrderDetails() {
     const [rowData, setRowData] = useState<any>([]);
