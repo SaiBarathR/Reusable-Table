@@ -1,12 +1,15 @@
 'use client'
 
-import { Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { IconButton, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
-export default function CustomTable({ headers, row, sortable }) {
+export default function CustomTable({ headers, row, sortable = false }) {
     const [rows, setRows] = useState([]);
     const cellRenderList = useMemo(() => headers.map((header, index) => header.cellRenderer ? header.label : false), [headers])
-    const [isDisplaySmall, setIsDisplaySmall] = useState(false)
+    const [isDisplaySmall, setIsDisplaySmall] = useState(false);
+    const [sortField, setSortField] = useState("");
+    const [order, setOrder] = useState("asc");
 
     useEffect(() => {
         const isDisplaySmall = window.matchMedia('(max-width: 1096px)');
@@ -23,13 +26,41 @@ export default function CustomTable({ headers, row, sortable }) {
         setRows(row)
     }, [row])
 
+    const handleSortingByColumn = (sortField, sortOrder) => {
+        if (sortField) {
+            const sorted = [...rows].sort((a, b) => {
+                return (
+                    a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
+                        numeric: true,
+                    }) * (sortOrder === "asc" ? 1 : -1)
+                );
+            });
+            setRows(sorted);
+        }
+    };
+
+    function handleClickColumnName(columnName) {
+        return () => {
+            const sortOrder = columnName === sortField && order === "asc" ? "desc" : "asc";
+            setSortField(columnName);
+            setOrder(sortOrder);
+            handleSortingByColumn(columnName, sortOrder);
+        }
+    }
 
     function ColumnRenderer({ columns }) {
         return (
             <Thead >
                 <Tr className="bg-gray-300 border-radius-table-row h-[52px]">
-                    {columns.map((column, index) => <Th cursor={sortable ? "pointer" : "auto"} key={column.label}>
-                        {column.label}
+                    {columns.map((column, index) => <Th onClick={(sortable && !column.cellRenderer) ? handleClickColumnName(column.label) : null} cursor={sortable ? "pointer" : "auto"} key={column.label}>
+                        <div className="flex gap-2 items-center">
+                            {column.name}
+                            {sortable && sortField === column.label && !column.cellRenderer && <IconButton size={"xs"} transform={order === 'asc' ? "rotate(0deg)" : "rotate(180deg)"}
+                                icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M4.16797 7L10.0013 13.6667L15.8346 7" stroke="#99A0A8" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>}
+                            />}
+                        </div>
                     </Th>)
                     }
                 </Tr>

@@ -7,8 +7,9 @@ import CustomTable from './CustomTable'
 
 export default function OrderDetails() {
     const [rowData, setRowData] = useState<any>([]);
-    const columnsData = useMemo(() => [{ label: 'timeStamp' }, { label: 'purchaseId' }, { label: 'mail' }, { label: 'name' }, { label: 'source', },
-    { label: 'status', cellRenderer: StatusRenderer }, { label: 'select', cellRenderer: CustomSelect }], []);
+    const columnsData = useMemo(() => [
+        { label: 'timeStamp', name: 'TimeStamp' }, { label: 'purchaseId', name: 'Purchase Id' }, { label: 'mail', name: 'Mail' }, { label: 'name', name: 'Name' }, { label: 'source', name: 'Source' },
+        { label: 'status', name: 'Status', cellRenderer: StatusRenderer }, { label: 'select', name: 'Select', cellRenderer: CustomSelect }], []);
 
     useEffect(() => {
         setRowData(rowsObject)
@@ -29,7 +30,7 @@ export default function OrderDetails() {
             <CustomTable
                 headers={columnsData}
                 row={rowData}
-                sortable={true}
+                sortable
             />
         </div>
     )
