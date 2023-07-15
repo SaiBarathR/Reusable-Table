@@ -3,9 +3,12 @@
 import { IconButton, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import Paginations from "./Pagination"
+import "./customTable.css"
 
-export default function CustomTable({ headers, row, sortable = false }) {
+export default function CustomTable({ headers, row, sortable = false, rowsPerPage = 6 }) {
     const [rows, setRows] = useState([]);
+    const [currentRow, setCurrentRow] = useState([]);
     const cellRenderList = useMemo(() => headers.map((header, index) => header.cellRenderer ? header.label : false), [headers])
     const [isDisplaySmall, setIsDisplaySmall] = useState(false);
     const [sortField, setSortField] = useState("");
@@ -18,7 +21,7 @@ export default function CustomTable({ headers, row, sortable = false }) {
             setIsDisplaySmall(matches)
         }
         return () => {
-            isDisplaySmall.removeEventListener("change", resize);
+            isDisplaySmall.removeEventListener("change", handleResize);
         }
     }, []);
 
@@ -78,14 +81,19 @@ export default function CustomTable({ headers, row, sortable = false }) {
             </Tbody>
         )
     }
-
+    console.log(rows.length)
+    // console.log(rows, currentRow)
     return (
-        <TableContainer className="custom-table-container">
-            <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
-                <ColumnRenderer columns={headers} />
-                <RowRenderer rows={rows} />
-            </Table>
-        </TableContainer>
+        <div className="flex flex-col gap-5">
+            <TableContainer className="custom-table-container">
+                <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
+                    <ColumnRenderer columns={headers} />
+                    <RowRenderer rows={currentRow} />
+                </Table>
+            </TableContainer>
+            <Paginations rows={rows} changeRows={setRows} rowsPerPage={rowsPerPage} setCurrentRow={setCurrentRow} currentRow={setCurrentRow} />
+        </div>
     )
 
 };
+

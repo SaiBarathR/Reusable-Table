@@ -1,6 +1,5 @@
 'use client'
 
-import "./customTable.css"
 import { useEffect, useMemo, useState } from "react";
 import { rowsObject } from './constants'
 import CustomTable from './CustomTable'
@@ -31,6 +30,7 @@ export default function OrderDetails() {
                 headers={columnsData}
                 row={rowData}
                 sortable
+                rowsPerPage={6}
             />
         </div>
     )
