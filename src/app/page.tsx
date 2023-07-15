@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import CustomTable from './Components/CustomTable'
+import CustomTable from './Components/OrderDetails'
 
 export default function Home() {
   return (
