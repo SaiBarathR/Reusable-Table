@@ -5,8 +5,8 @@ export const rowsObject = [
         mail: 'saibarathdeep@outlook.com',
         name: 'Sai',
         source: '',
-        status: false,
-        select: "selected"
+        status: 'failed',
+        select: "Select"
     },
     {
         timeStamp: '35 minutes ago',
@@ -14,16 +14,16 @@ export const rowsObject = [
         mail: 'saibarathdeep@outlook.com',
         name: 'Sai',
         source: '',
-        status: false,
-        select: "selected"
+        status: 'failed',
+        select: "Select"
     }, {
         timeStamp: '35 minutes ago',
         purchaseId: 265845121,
         mail: 'saibarathdeep@outlook.com',
         name: 'Sai',
         source: '',
-        status: false,
-        select: "selected"
+        status: 'paid',
+        select: "Select"
     }
     , {
         timeStamp: '35 minutes ago',
@@ -31,8 +31,8 @@ export const rowsObject = [
         mail: 'saibarathdeep@outlook.com',
         name: 'Sai',
         source: '',
-        status: false,
-        select: "selected"
+        status: 'waiting',
+        select: "Select"
     }
 ]
 
