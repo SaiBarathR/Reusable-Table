@@ -12,7 +12,7 @@ export const rowsObject = [
         timeStamp: '35 minutes ago',
         purchaseId: 265845121,
         mail: 'saibarathdeep@outlook.com',
-        name: 'Sai',
+        name: 'Barath',
         source: '',
         status: 'failed',
         select: "Select"
@@ -20,7 +20,7 @@ export const rowsObject = [
         timeStamp: '35 minutes ago',
         purchaseId: 265845121,
         mail: 'saibarathdeep@outlook.com',
-        name: 'Sai',
+        name: 'Hari',
         source: '',
         status: 'paid',
         select: "Select"
@@ -29,7 +29,7 @@ export const rowsObject = [
         timeStamp: '35 minutes ago',
         purchaseId: 265845121,
         mail: 'saibarathdeep@outlook.com',
-        name: 'Sai',
+        name: 'Lokesh',
         source: '',
         status: 'waiting',
         select: "Select"
