@@ -6,7 +6,7 @@ import CustomTable from "./Table/CustomTable";
 
 export default function OrderDetails() {
     const [rowData, setRowData] = useState<any>([]);
-    const columnsData = useMemo(() => [
+    const columnsData = useMemo<any>(() => [
         { label: 'timeStamp', name: 'TimeStamp' }, { label: 'purchaseId', name: 'Purchase Id' }, { label: 'mail', name: 'Mail' }, { label: 'name', name: 'Name' }, { label: 'source', name: 'Source' },
         { label: 'status', name: 'Status', cellRenderer: StatusRenderer }, { label: 'select', name: 'Select', cellRenderer: CustomSelect }], []);
 
@@ -30,6 +30,7 @@ export default function OrderDetails() {
                 headers={columnsData}
                 row={rowData}
                 sortable
+                caption="Bookings"
             // defaultRowsPerPage={6} defaultRowsPerPage is 6
             // defaultPaginationLength={5}  defaultdefaultPaginationLength is 5
             />

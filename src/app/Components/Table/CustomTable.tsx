@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./customTable.css"
 import Paginations from "./Pagination";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import HeaderComponent from "./HeaderComponent";
 
 type tableProps = {
     headers: any;
@@ -14,6 +15,7 @@ type tableProps = {
     sortable: boolean;
     defaultRowsPerPage: number;
     defaultPaginationLength: 5
+    caption: string,
 }
 
 type columnProps = {
@@ -24,7 +26,7 @@ type rowProps = {
     rows: any
 }
 
-export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5 }: tableProps) {
+export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5, caption = "empty" }: tableProps) {
     const [rows, setRows] = useState([]);
     const [currentRow, setCurrentRow] = useState([]);
     const cellRenderList = useMemo(() => headers.map((header: any, index: number) => header.cellRenderer ? header.label : false), [headers])
@@ -100,14 +102,18 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
 
     return (
         <div className="flex flex-col gap-5">
-            <TableContainer className="custom-table-container">
-                <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
-                    <ColumnRenderer columns={headers} />
-                    <RowRenderer rows={currentRow} />
-                </Table>
-            </TableContainer>
+            <div className="custom-table-container">
+                {caption !== "empty" && <HeaderComponent total={rows.length} caption={caption}/>}
+                <TableContainer className="m-5" >
+                    <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
+                        <ColumnRenderer columns={headers} />
+                        <RowRenderer rows={currentRow} />
+                    </Table>
+                </TableContainer>
+            </div>
             <Paginations rows={rows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />
         </div>
+
     )
 };
 
