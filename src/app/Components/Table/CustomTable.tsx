@@ -28,6 +28,7 @@ type rowProps = {
 
 export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5, caption = "empty" }: tableProps) {
     const [rows, setRows] = useState([]);
+    const [filteredRows, setFilteredRows] = useState([])
     const [currentRow, setCurrentRow] = useState([]);
     const cellRenderList = useMemo(() => headers.map((header: any, index: number) => header.cellRenderer ? header.label : false), [headers])
     const [isDisplaySmall, setIsDisplaySmall] = useState(false);
@@ -46,19 +47,23 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
     }, []);
 
     useEffect(() => {
+        setFilteredRows(rows)
+    }, [rows])
+
+    useEffect(() => {
         setRows(row)
     }, [row])
 
     const handleSortingByColumn = (sortField: any, sortOrder: String) => {
         if (sortField) {
-            const sorted = [...rows].sort((a: any, b: any) => {
+            const sorted = [...filteredRows].sort((a: any, b: any) => {
                 return (
                     a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
                         numeric: true,
                     }) * (sortOrder === "asc" ? 1 : -1)
                 );
             });
-            setRows(sorted);
+            setFilteredRows(sorted);
         }
     };
 
@@ -103,7 +108,7 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
     return (
         <div className="flex flex-col gap-5">
             <div className="custom-table-container">
-                {caption !== "empty" && <HeaderComponent total={rows.length} caption={caption}/>}
+                {caption !== "empty" && <HeaderComponent total={rows.length} caption={caption} rowData={rows} filterRows={setFilteredRows} />}
                 <TableContainer className="m-5" >
                     <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
                         <ColumnRenderer columns={headers} />
@@ -111,7 +116,7 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
                     </Table>
                 </TableContainer>
             </div>
-            <Paginations rows={rows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />
+            <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />
         </div>
 
     )
