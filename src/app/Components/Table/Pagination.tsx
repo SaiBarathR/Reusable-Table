@@ -37,7 +37,7 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
     }
 
     function handleCliickPaginationArrows(direction: string) {
-        const limit = direction === "left" ? maxItemsBetweenArrows - (defaultPaginationLength - 1) : maxItemsBetweenArrows === 0 ? maxItemsBetweenArrows + (defaultPaginationLength) : maxItemsBetweenArrows + (defaultPaginationLength + 1);
+        const limit = direction === "left" ? maxItemsBetweenArrows - (defaultPaginationLength - 1) >= 0 ? maxItemsBetweenArrows - (defaultPaginationLength - 1) : 0 : maxItemsBetweenArrows === 0 ? maxItemsBetweenArrows + (defaultPaginationLength) : maxItemsBetweenArrows + (defaultPaginationLength + 1);
         if (limit < (totalPages)) {
             setMaxItemsBetweenArrows(limit - 1)
             handleClickPagination(limit + 1)
