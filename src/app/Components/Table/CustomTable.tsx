@@ -17,6 +17,7 @@ type tableProps = {
     defaultPaginationLength: 5;
     caption: string;
     pagination: boolean;
+    filterRowsByColumnGroup: any;
 }
 
 type columnProps = {
@@ -27,7 +28,7 @@ type rowProps = {
     rows: any
 }
 
-export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5, caption = "empty", pagination = false }: tableProps) {
+export default function CustomTable({ headers, row, filterRowsByColumnGroup = [], sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5, caption = "empty", pagination = false }: tableProps) {
     const [rows, setRows] = useState([]);
     const [filteredRows, setFilteredRows] = useState([])
     const [currentRow, setCurrentRow] = useState([]);
@@ -107,19 +108,22 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
     }
 
     return (
-        <div className="flex flex-col gap-5">
+        rows.length > 0 && <div className="flex flex-col gap-5">
             <div className="custom-table-container">
-                {caption !== "empty" && <HeaderComponent total={rows.length} caption={caption} rowData={rows} filterRows={setFilteredRows} />}
-                <TableContainer className="m-5" >
+                {caption !== "empty" && <HeaderComponent total={rows.length} onlyFilteredDatas={filteredRows} caption={caption} rowData={rows} filterRows={setFilteredRows} filterRowsByColumnGroup={filterRowsByColumnGroup} />}
+                {filteredRows.length > 0 ? <TableContainer className="m-5" >
                     <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
                         <ColumnRenderer columns={headers} />
                         <RowRenderer rows={currentRow} />
                     </Table>
-                </TableContainer>
+                </TableContainer> :
+                    <div className="w-full min-h-[200px] min-w-[500px] flex items-center justify-center text-2xl font-medium mb-12">
+                        No Values present
+                    </div>
+                }
             </div>
-            {pagination && <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />}
+            {pagination && filteredRows.length > 0 && <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />}
         </div>
-
     )
 };
 

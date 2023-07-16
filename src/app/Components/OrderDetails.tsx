@@ -29,11 +29,13 @@ export default function OrderDetails() {
             <CustomTable
                 headers={columnsData}
                 row={rowData}
+                //Optional Props
                 sortable // default false
-                caption="Bookings" //default no header 
+                caption="Bookings" //default no header so no header component will be rendered
                 pagination //default false
                 defaultRowsPerPage={6}// defaultRowsPerPage is 6
                 defaultPaginationLength={5} // defaultdefaultPaginationLength is 5
+                filterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]} //default empty array so it will be hidden
             />
         </div>
     )
