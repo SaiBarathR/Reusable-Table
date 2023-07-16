@@ -29,10 +29,11 @@ export default function OrderDetails() {
             <CustomTable
                 headers={columnsData}
                 row={rowData}
-                sortable
-                caption="Bookings"
-            // defaultRowsPerPage={6} defaultRowsPerPage is 6
-            // defaultPaginationLength={5}  defaultdefaultPaginationLength is 5
+                sortable // default false
+                caption="Bookings" //default no header 
+                pagination //default false
+                defaultRowsPerPage={6}// defaultRowsPerPage is 6
+                defaultPaginationLength={5} // defaultdefaultPaginationLength is 5
             />
         </div>
     )

@@ -14,8 +14,9 @@ type tableProps = {
     row: any;
     sortable: boolean;
     defaultRowsPerPage: number;
-    defaultPaginationLength: 5
-    caption: string,
+    defaultPaginationLength: 5;
+    caption: string;
+    pagination: boolean;
 }
 
 type columnProps = {
@@ -26,7 +27,7 @@ type rowProps = {
     rows: any
 }
 
-export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5, caption = "empty" }: tableProps) {
+export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5, caption = "empty", pagination = false }: tableProps) {
     const [rows, setRows] = useState([]);
     const [filteredRows, setFilteredRows] = useState([])
     const [currentRow, setCurrentRow] = useState([]);
@@ -116,7 +117,7 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
                     </Table>
                 </TableContainer>
             </div>
-            <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />
+            {pagination && <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />}
         </div>
 
     )
