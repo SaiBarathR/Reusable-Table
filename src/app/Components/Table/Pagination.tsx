@@ -3,8 +3,15 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { useEffect, useState, useMemo } from "react"
 
-export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, defaultPaginationLength }) {
-    const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);
+type paginationProps = {
+    rows: any;
+    setCurrentRow: any;
+    defaultRowsPerPage: number;
+    defaultPaginationLength: number;
+}
+
+export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, defaultPaginationLength }: paginationProps) {
+    const [rowsPerPage, setRowsPerPage] = useState<number>(defaultRowsPerPage);
     const [currentPage, setCurrentPage] = useState(0);
     const totalPages = useMemo(() => Math.ceil(rows.length / rowsPerPage), [rows, rowsPerPage])
     const [maxItemsBetweenArrows, setMaxItemsBetweenArrows] = useState(0);
@@ -14,21 +21,21 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rows, rowsPerPage, totalPages])
 
-    function handleClickPagination(pageNumber) {
+    function handleClickPagination(pageNumber: number) {
         const endIndex = pageNumber * rowsPerPage
         const startIndex = (endIndex - rowsPerPage)
         setCurrentRow(rows.slice(startIndex, endIndex))
         setCurrentPage(pageNumber - 1)
     }
 
-    function Arrows(props) {
+    function Arrows(props: any) {
         return <div {...props}> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
             <path d="M7 0.582031L1 6.58203L7 12.582" stroke="#7A7A7A" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
         </div>
     }
 
-    function handleCliickPaginationArrows(direction) {
+    function handleCliickPaginationArrows(direction: string) {
         const limit = direction === "left" ? maxItemsBetweenArrows - (defaultPaginationLength - 1) : maxItemsBetweenArrows === 0 ? maxItemsBetweenArrows + (defaultPaginationLength) : maxItemsBetweenArrows + (defaultPaginationLength + 1);
         if (limit < (totalPages)) {
             setMaxItemsBetweenArrows(limit - 1)

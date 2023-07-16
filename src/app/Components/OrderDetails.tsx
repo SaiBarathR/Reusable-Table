@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { rowsObject } from '../constants'
-import CustomTable from './Table/CustomTable'
+import CustomTable from "./Table/CustomTable";
 
 export default function OrderDetails() {
     const [rowData, setRowData] = useState<any>([]);
