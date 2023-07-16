@@ -16,6 +16,7 @@ type headerProps = {
 export default function HeaderComponent({ total, caption, rowData, filterRows, filterRowsByColumnGroup, onlyFilteredDatas }: headerProps) {
 
     const [filterRowsByColumn, setFilteredRowsByColumn] = useState<any>([])
+
     useEffect(() => {
         resetFilters()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,6 +64,15 @@ export default function HeaderComponent({ total, caption, rowData, filterRows, f
         filterRows(getUniqueValuesInAllArrays(localFilterList))
     }
 
+    function checkForFiltersByColumn(array: any[][]): boolean {
+        return array.some((innerArray) => {
+            return innerArray.some((obj) => {
+                const value = Object.values(obj)[0];
+                return typeof value === 'boolean' && value === true;
+            });
+        });
+    }
+
     function handleClickFilterCheckbox(event: any, value: string, column: string, index: number, subIndex: number) {
         let localFileterdColumnGroup = structuredClone(filterRowsByColumn);
         localFileterdColumnGroup[index][subIndex][value] = event.target.checked
@@ -71,9 +81,8 @@ export default function HeaderComponent({ total, caption, rowData, filterRows, f
         }
         else {
             let filteredList = onlyFilteredDatas.filter((rowObj: any) => !(rowObj[column].toString().toLowerCase() === (value.toString().toLowerCase())))
-            console.log(filteredList)
             filterRows((filteredList.length > 0 ? filteredList : rowData));
-            handleAddFilterValues(localFileterdColumnGroup)
+            checkForFiltersByColumn(localFileterdColumnGroup) && handleAddFilterValues(localFileterdColumnGroup);
         }
         setFilteredRowsByColumn(localFileterdColumnGroup)
     }
