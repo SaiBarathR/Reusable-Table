@@ -3,15 +3,40 @@
 import { useEffect, useMemo, useState } from "react";
 import { rowsObject } from '../constants'
 import CustomTable from "./Table/CustomTable";
+import { orderDetailsTableRows } from "../service/tableService";
+import { useToast } from "@chakra-ui/react";
 
 export default function OrderDetails() {
+    const toast = useToast()
     const [rowData, setRowData] = useState<any>([]);
     const columnsData = useMemo<any>(() => [
         { label: 'timeStamp', name: 'TimeStamp' }, { label: 'purchaseId', name: 'Purchase Id' }, { label: 'mail', name: 'Mail' }, { label: 'name', name: 'Name' }, { label: 'source', name: 'Source' },
         { label: 'status', name: 'Status', cellRenderer: StatusRenderer }, { label: 'select', name: 'Select', cellRenderer: CustomSelect }], []);
 
+    async function getOrderRowData() {
+        const resp = await orderDetailsTableRows();
+        try {
+            if (Object.keys(resp).includes('orderDetailRows')) {
+                setRowData(resp.orderDetailRows)
+                toast({
+                    title: `Successfully fetched order details row data`,
+                    isClosable: true,
+                    position: 'top',
+                    status: "success"
+                })
+            }
+            else {
+                console.log("unable to fetch order details rows")
+            }
+        }
+        catch (err) {
+            console.log(err + 'unable to fetch orderdetails api')
+        }
+    }
+
     useEffect(() => {
         setRowData(rowsObject)
+        // getOrderRowData()
     }, [])
 
     function CustomSelect(value: any[]) {
