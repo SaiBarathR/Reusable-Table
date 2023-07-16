@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import CustomTable from './Components/OrderDetails'
+import OrderDetails from './Components/OrderDetails'
 
 export default function Home() {
   return (
     <div className="w-full h-screen flex justify-center items-start">
-      <CustomTable />
+      <OrderDetails />
     </div >
   )
 }

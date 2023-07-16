@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useState } from "react";
-import { rowsObject } from '../constants'
 import CustomTable from "./Table/CustomTable";
 import { orderDetailsTableRows } from "../service/tableService";
 import { useToast } from "@chakra-ui/react";
@@ -35,8 +34,8 @@ export default function OrderDetails() {
     }
 
     useEffect(() => {
-        setRowData(rowsObject)
-        // getOrderRowData()
+        getOrderRowData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function CustomSelect(value: any[]) {
@@ -46,7 +45,6 @@ export default function OrderDetails() {
     function StatusRenderer(value: any[]) {
         const backgroundColor = value[1] === 'failed' ? 'bg-red-200' : value[1] === 'waiting' ? 'bg-yellow-100' : 'bg-green-200';
         return <div className={`flex items-center p-1 capitalize text-gray-800 font-medium text-sm rounded-lg justify-center min-w-[60px] ${backgroundColor}`}>{value[1]}</div>
-
     }
 
     return (

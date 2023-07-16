@@ -1,13 +1,11 @@
 'use client'
 
-import { IconButton, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
-import Image from "next/image";
+import { IconButton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
-
-import "./customTable.css"
-import Paginations from "./Pagination";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import HeaderComponent from "./HeaderComponent";
+import Paginations from "./Pagination";
+import "./customTable.css"
 
 type tableProps = {
     headers: any;
@@ -118,7 +116,7 @@ export default function CustomTable({ headers, row, filterRowsByColumnGroup = []
                     </Table>
                 </TableContainer> :
                     <div className="w-full min-h-[200px] min-w-[500px] flex items-center justify-center text-2xl font-medium mb-12">
-                        No Values present
+                        No rows data is available to display
                     </div>
                 }
             </div>
