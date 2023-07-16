@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import Paginations from "./Pagination"
 import "./customTable.css"
 
-export default function CustomTable({ headers, row, sortable = false, rowsPerPage = 6 }) {
+export default function CustomTable({ headers, row, sortable = false, defaultRowsPerPage = 6, defaultPaginationLength = 5 }) {
     const [rows, setRows] = useState([]);
     const [currentRow, setCurrentRow] = useState([]);
     const cellRenderList = useMemo(() => headers.map((header, index) => header.cellRenderer ? header.label : false), [headers])
@@ -81,8 +81,7 @@ export default function CustomTable({ headers, row, sortable = false, rowsPerPag
             </Tbody>
         )
     }
-    console.log(rows.length)
-    // console.log(rows, currentRow)
+
     return (
         <div className="flex flex-col gap-5">
             <TableContainer className="custom-table-container">
@@ -91,7 +90,7 @@ export default function CustomTable({ headers, row, sortable = false, rowsPerPag
                     <RowRenderer rows={currentRow} />
                 </Table>
             </TableContainer>
-            <Paginations rows={rows} changeRows={setRows} rowsPerPage={rowsPerPage} setCurrentRow={setCurrentRow} currentRow={setCurrentRow} />
+            <Paginations rows={rows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />
         </div>
     )
 

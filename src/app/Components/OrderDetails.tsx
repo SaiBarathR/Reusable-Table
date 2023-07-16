@@ -30,7 +30,8 @@ export default function OrderDetails() {
                 headers={columnsData}
                 row={rowData}
                 sortable
-                rowsPerPage={6}
+            // defaultRowsPerPage={6} defaultRowsPerPage is 6
+            // defaultPaginationLength={5}  defaultdefaultPaginationLength is 5
             />
         </div>
     )
