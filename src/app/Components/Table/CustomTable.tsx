@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import "./customTable.css"
 import Paginations from "./Pagination";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 type tableProps = {
     headers: any;
@@ -60,7 +61,8 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
     };
 
     function handleClickColumnName(columnName: string) {
-        return () => { const sortOrder = columnName === sortField && order === "asc" ? "desc" : "asc";
+        return () => {
+            const sortOrder = columnName === sortField && order === "asc" ? "desc" : "asc";
             setSortField(columnName);
             setOrder(sortOrder);
             handleSortingByColumn(columnName, sortOrder);
@@ -75,9 +77,7 @@ export default function CustomTable({ headers, row, sortable = false, defaultRow
                         <div className="flex gap-2 items-center">
                             {column.name}
                             {sortable && sortField === column.label && !column.cellRenderer && <IconButton aria-label="sort" size={"xs"} transform={order === 'asc' ? "rotate(0deg)" : "rotate(180deg)"}
-                                icon={<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M4.16797 7L10.0013 13.6667L15.8346 7" stroke="#99A0A8" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>}
+                                icon={<ChevronDownIcon boxSize={5} />}
                             />}
                         </div>
                     </Th>)

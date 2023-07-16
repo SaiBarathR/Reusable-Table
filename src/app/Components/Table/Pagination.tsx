@@ -1,5 +1,6 @@
 'use client'
 
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { useEffect, useState, useMemo } from "react"
 
@@ -18,6 +19,8 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
 
     useEffect(() => {
         setCurrentRow(rows.slice(0, rowsPerPage))
+        handleClickPagination(1)
+        setMaxItemsBetweenArrows(0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rows, rowsPerPage, totalPages])
 
@@ -29,9 +32,7 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
     }
 
     function Arrows(props: any) {
-        return <div {...props}> <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
-            <path d="M7 0.582031L1 6.58203L7 12.582" stroke="#7A7A7A" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        return <div {...props}> <ChevronDownIcon boxSize={6} />
         </div>
     }
 
@@ -46,7 +47,7 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
     return <div className="w-full items-center flex gap-1 justify-center">
         <div>
             <Menu>
-                <MenuButton as={Button} className="bg-slate-200" rightIcon={<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" /></svg>}>
+                <MenuButton as={Button} className="bg-slate-200" rightIcon={<ChevronDownIcon />}>
                     Rows Per Page: {rowsPerPage}
                 </MenuButton>
                 <MenuList className="p-3">
@@ -54,7 +55,7 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
                 </MenuList>
             </Menu>
         </div>
-        <Arrows className="w-7 h-7 flex rounded cursor-pointer items-center justify-center hover:bg-sky-400" onClick={() => { currentPage === 0 ? null : handleCliickPaginationArrows("left") }} />
+        <Arrows className="w-7 h-7 flex rounded cursor-pointer rotate-90 items-center justify-center hover:bg-sky-400" onClick={() => { currentPage === 0 ? null : handleCliickPaginationArrows("left") }} />
         <div className="flex gap-2  ">
             {[...Array(totalPages).keys()].map((number, i) => {
                 return (maxItemsBetweenArrows === 0 ? i < defaultPaginationLength : (i > (maxItemsBetweenArrows) && i < (maxItemsBetweenArrows + (defaultPaginationLength + 1)))) && <button onClick={() => { handleClickPagination(number + 1) }} key={i} className={`w-7 h-7 flex items-center  hover:bg-sky-400 hover:border-sky-400 justify-center rounded border ${currentPage === (i) ? "border-[#3D8BF8]" : "border-[#99A0A8] "}`}>
@@ -63,6 +64,6 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
             })
             }
         </div>
-        <Arrows className="w-7 h-7 rounded cursor-pointer flex items-center justify-center rotate-180 hover:bg-sky-400" onClick={() => { handleCliickPaginationArrows('right') }} />
+        <Arrows className="w-7 h-7 rounded cursor-pointer flex items-center justify-center rotate-[270deg] hover:bg-sky-400" onClick={() => { handleCliickPaginationArrows('right') }} />
     </div >
 }
