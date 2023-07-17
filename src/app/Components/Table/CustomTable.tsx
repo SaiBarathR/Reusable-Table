@@ -112,7 +112,7 @@ export default function CustomTable({ headers, row, filterRowsByColumnGroup = []
                 {filteredRows.length > 0 ? <TableContainer className="m-5" >
                     <Table variant={"unstyled"} size={isDisplaySmall ? "sm" : "md"}>
                         <ColumnRenderer columns={headers} />
-                        <RowRenderer rows={currentRow} />
+                        <RowRenderer rows={pagination ? currentRow : filteredRows} />
                     </Table>
                 </TableContainer> :
                     <div className="w-full min-h-[200px] min-w-[500px] flex items-center justify-center text-2xl font-medium mb-12">
