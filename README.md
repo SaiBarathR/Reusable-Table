@@ -51,6 +51,8 @@ const columnsData = useMemo<any>(() => [ { label: 'timeStamp', name: 'TimeStamp'
 //Now the status renderer can provide different chips based on the row values
 
 ```
+## Libraries Used other than Next.js defaults: Chakra-Ui Chakra-icons
+
 
 ## Getting Started
 
