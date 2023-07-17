@@ -4,9 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import CustomTable from "./Table/CustomTable";
 import { orderDetailsTableRows } from "../service/tableService";
 import { useToast } from "@chakra-ui/react";
+import Loading from "../loading";
 
 export default function OrderDetails() {
     const toast = useToast()
+    const [loading, setLoading] = useState(true);
     const [rowData, setRowData] = useState<any>([]);
     const columnsData = useMemo<any>(() => [
         { label: 'timeStamp', name: 'TimeStamp' }, { label: 'purchaseId', name: 'Purchase Id' }, { label: 'mail', name: 'Mail' }, { label: 'name', name: 'Name' }, { label: 'source', name: 'Source' },
@@ -23,19 +25,22 @@ export default function OrderDetails() {
                     position: 'top',
                     status: "success"
                 })
+                setLoading(false);
             }
             else {
                 console.log("unable to fetch order details rows")
+                setLoading(false);
             }
         }
         catch (err) {
-            console.log(err + 'unable to fetch orderdetails api')
+            console.log(err + 'unable to fetch orderdetails api');
+            setLoading(false);
         }
     }
 
     useEffect(() => {
         getOrderRowData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function CustomSelect(value: any[]) {
@@ -49,17 +54,18 @@ export default function OrderDetails() {
 
     return (
         <div className="text-black p-12">
-            <CustomTable
-                headers={columnsData}
-                row={rowData}
-                //Optional Props
-                sortable // default false
-                caption="Bookings" //default no header so no header component will be rendered
-                pagination //default false
-                defaultRowsPerPage={6}// defaultRowsPerPage is 6
-                defaultPaginationLength={5} // defaultdefaultPaginationLength is 5
-                filterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]} //default empty array so it will be hidden
-            />
+            {loading ? <Loading /> :
+                <CustomTable
+                    headers={columnsData}
+                    row={rowData}
+                    //Optional Props
+                    sortable // default false
+                    caption="Bookings" //default no header so no header component will be rendered
+                    pagination //default false
+                    defaultRowsPerPage={6}// defaultRowsPerPage is 6
+                    defaultPaginationLength={5} // defaultdefaultPaginationLength is 5
+                    filterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]} //default empty array so it will be hidden
+                />}
         </div>
     )
 }
