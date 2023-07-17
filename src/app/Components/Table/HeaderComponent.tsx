@@ -102,17 +102,17 @@ export default function HeaderComponent({ total, caption, rowData, filterRows, f
                         icon={<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 1H1L6.6 8.35778V13.4444L9.4 15V8.35778L15 1Z" stroke="#536580" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                     />
                     <MenuList>
-                        <div className="flex- flex-col justify-start text-base ">
-                            <div className="flex justify-between items-center w-full border-b border-[#D9D9D9] p-2 pt-0">
-                                <p className="font-medium text-sm">Filter by</p>
-                                <button onClick={() => { resetFilters(); filterRows(rowData); }} className="text-[#3D8BF8] text-sm hover:text-white hover:bg-[#3D8BF8] p-1 rounded">Reset Filters</button>
+                        <div className="flex- flex-col justify-start text-lg ">
+                            <div className="flex justify-between items-center w-full border-b border-[#D9D9D9] p-3 pt-0 pb-1">
+                                <p className="font-medium text-base">Filter by</p>
+                                <button onClick={() => { resetFilters(); filterRows(rowData); }} className="text-[#3D8BF8] text-base hover:text-white hover:bg-[#3D8BF8] p-1 rounded">Reset Filters</button>
                             </div>
                             {filterRowsByColumnGroup.map((filterValues: any, index: number) => <div key={filterValues.column}>
-                                <div className="capitalize w-full p-2 pb-0">
-                                    <label className="text-[#6B778C] text-sm font-medium">{filterValues.column}</label>
-                                    <div className="flex flex-col p-2">
-                                        {filterValues.values.map((value: any, subIndex: number) => <div className="text-sm m-1" key={value + subIndex}>
-                                            <Checkbox size='sm' colorScheme="linkedin" onChange={(e) => { handleClickFilterCheckbox(e, value, filterValues.column, index, subIndex) }}
+                                <div className="capitalize w-full p-3 pb-0">
+                                    <label className="text-[#6B778C] text-base font-medium">{filterValues.column}</label>
+                                    <div className="flex flex-col p-1 pt-0">
+                                        {filterValues.values.map((value: any, subIndex: number) => <div className="text-base m-1 mb-0" key={value + subIndex}>
+                                            <Checkbox size='md' colorScheme="linkedin" onChange={(e) => { handleClickFilterCheckbox(e, value, filterValues.column, index, subIndex) }}
                                                 isChecked={filterRowsByColumn[index][subIndex][value]}
                                             >
                                                 {value}
