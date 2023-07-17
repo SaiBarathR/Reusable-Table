@@ -26,7 +26,7 @@ This is a [Next-js](https://nextjs.org/) project bootstrapped with [`create-next
 
 The default behaviour of filters is disabled if filterRowsByColumnGroup is not provided. 
 
-``` Example: ilterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]}```
+``` Example: filterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]}```
 
 
 **row**: Arrays of Objects, Rows Data. Format: ```[ { columnName: value }, { columnName: value }, { columnName: value } ] ```.
