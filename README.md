@@ -1,4 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next-js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Feature List / Optional Props
+
+sortable: Boolean, To sort columns by ascending or descending when clicking the column name. This won't work for cell renderer components inside a column. Only for string and numbers
+
+caption: String, This is the header props for the table, default behaviour has no header so headers are visible only when a caption is provided. It displays search, total rows, total filtered rows and filter.
+
+pagination: Boolean, Default: Pagination is turned off by default so this prop is required if you want to enable the pagination.
+
+defaultRowsPerPage: Number, By default the rows per is enabled when pagination is enabled. Default rows per column are 6 if no value is provided.
+
+defaultPaginationLength: Number, these set the limit for pagination numbers range for example a value of 5 will limit displaying 1-5 with next and previous buttons to jump to 6-10 and thus by it goes on till the rows end. The default pagination length is 5 if no value is provided.
+
+filterRowsByColumnGroup: Array of Objects format: ```[ { column: 'name of column 1', values: [ 'filter list of this column 1', 'multi filters for same columns' ] },  { column: 'name of column 2', values: [ 'filter list of this column 2', 'multi filters for same columns' ] } ]```. The default behaviour of filters is disabled if filterRowsByColumnGroup is not provided. 
+``` Example: ilterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]} //default empty array so it will be hidden```
+
+Search Bar: Default disabled. Search will be enabled once captions are provided so its default behaviour depends on captions that enable headers.
+
+row: Arrays of Objects, Rows Data. Format: ```[ { columnName: value }, { columnName: value }, { columnName: value } ] ```.
+
+headers: Arrays of Objects, List of columns;
+Format: ```[ { label: 'API name or local name', name: 'display name for header', cellRenderer: <react component>, optional, use only if you need to add components in row  }, { label: 'API name or local name', name: 'display name for header'} ]```
+cellRenderer: React Component, the Default behaviour is to render a normal row value but if cellRenderer is provided then a callback function will return an array with array[0]: column name & array[1]: row value. For every single row, this cellRenderer will be called with new row values to give options to render different options based on row values instead of the same component.
+Example:
+```
+const columnsData = useMemo<any>(() => [ { label: 'timeStamp', name: 'TimeStamp' }, { label: 'status', name: 'Status', cellRenderer: StatusRenderer }], []);
+
+  function StatusRenderer(value: any[]) {
+        const backgroundColor = value[1] === 'failed' ? 'bg-red-200' : value[1] === 'waiting' ? 'bg-yellow-100' : 'bg-green-200';
+        return <div className={`flex items-center p-1 capitalize text-gray-800 font-medium text-sm rounded-lg justify-center min-w-[60px] ${backgroundColor}`}>{value[1]}</div>
+    }
+
+//Now the status renderer can provide different chips based on the row values
+
+```
 
 ## Getting Started
 
@@ -9,7 +44,7 @@ npm run dev
 # or
 yarn dev
 # or
-pnpm dev
+npm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
