@@ -65,6 +65,10 @@ const columnsData = useMemo<any>(() => [ { label: 'timeStamp', name: 'TimeStamp'
 
 ## Libraries Used other than Next.js defaults: Chakra-Ui Chakra-icons
 
+**Advanced Version:**  [If you guys need a more advanced version then check out my custom table created using React with Ag-grid library](https://github.com/SaiBarathR/react-reusable-components/tree/main/Custom-Ag-Grid)
+
+Repo Link: https://github.com/SaiBarathR/react-reusable-components/tree/main/Custom-Ag-Grid
+
 ## Getting Started
 
 First, run the development server:
