@@ -120,7 +120,7 @@ export default function CustomTable({ headers, row, filterRowsByColumnGroup = []
                     </div>
                 }
             </div>
-            {pagination && filteredRows.length > 0 && <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />}
+            {pagination && filteredRows.length > 0 && defaultPaginationLength > 1 && <Paginations rows={filteredRows} defaultRowsPerPage={defaultRowsPerPage} setCurrentRow={setCurrentRow} defaultPaginationLength={defaultPaginationLength} />}
         </div>
     )
 };
