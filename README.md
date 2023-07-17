@@ -14,7 +14,7 @@ This is a [Next-js](https://nextjs.org/) project bootstrapped with [`create-next
 **pagination**: Boolean, Default: Pagination is turned off by default so this prop is required if you want to enable the pagination.
 
 
-**defaultRowsPerPage**: Number, By default the rows per is enabled when pagination is enabled. Default rows per column are 6 if no value is provided.
+**defaultRowsPerPage**: Number, By default the rows per page is enabled when pagination is enabled. Default rows per page are 6 if no value is provided.
 
 
 **defaultPaginationLength**: Number, these set the limit for pagination numbers range for example a value of 5 will limit displaying 1-5 with next and previous buttons to jump to 6-10 and thus by it goes on till the rows end. The default pagination length is 5 if no value is provided.
