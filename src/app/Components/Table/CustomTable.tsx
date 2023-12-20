@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import HeaderComponent from "./HeaderComponent";
 import Paginations from "./Pagination";
-import "./customTable.css"
+import "./table.css"
 
 type tableProps = {
     headers: any;
@@ -33,7 +33,7 @@ export default function CustomTable({ headers, row, filterRowsByColumnGroup = []
     //pagination row data for the current page
     const [currentRow, setCurrentRow] = useState([]);
     //names of the column who has cellrender instead of a normal value
-    const cellRenderList = useMemo(() => headers.map((header: any, index: number) => header.cellRenderer ? header.label : false), [headers])    
+    const cellRenderList = useMemo(() => headers.map((header: any, index: number) => header.cellRenderer ? header.label : false), [headers])
     const [isDisplaySmall, setIsDisplaySmall] = useState(false);
     //name of the column to sort by    
     const [sortField, setSortField] = useState("");
