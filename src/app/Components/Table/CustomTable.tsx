@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import HeaderComponent from "./HeaderComponent";
 import Paginations from "./Pagination";
-import "./tableStyle.css"
 
 type tableProps = {
     headers: any;
