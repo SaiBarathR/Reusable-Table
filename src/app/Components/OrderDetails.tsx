@@ -9,10 +9,7 @@ import { rowsObject } from "../constants";
 
 export default function OrderDetails() {
     
-    // const { loading, error, rowData } = useOrderDetails()
-    const loading = false
-    const error = false
-    const rowData = rowsObject;
+    const { loading, error, rowData } = useOrderDetails()    
     
     //column data with column header name as 'name' and real name as 'label' with option to- 
     //add cellrenderer to add custom react element inside the row of a partical column    
