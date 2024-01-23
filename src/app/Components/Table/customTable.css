@@ -1,0 +1,17 @@
+.custom-table-container {
+    border: 1px solid #D6D6D7;
+    border-radius: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100% !important;
+}
+
+/* .border-radius-table-row td:first-child,
+.border-radius-table-row th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.border-radius-table-row td:last-child,
+.border-radius-table-row th:last-child {
+    border-radius: 0 10px 10px 0;
+} */
