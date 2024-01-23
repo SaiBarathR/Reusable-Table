@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Button, Menu, MenuButton, MenuItem, MenuList, useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState, useMemo } from "react"
 
 type paginationProps = {
@@ -24,6 +24,8 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
     const totalPages = useMemo(() => Math.ceil(rows.length / rowsPerPage), [rows, rowsPerPage])
     //length of pagination number between next and previous buttons
     const [maxItemsBetweenArrows, setMaxItemsBetweenArrows] = useState(0);
+    const [isLargerThan1200] = useMediaQuery('(min-width: 1200)')
+    const [isLargerThan650] = useMediaQuery('(min-width: 650')    
 
     useEffect(() => {
         setCurrentRow(rows.slice(0, rowsPerPage))
@@ -56,19 +58,22 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
         }
     }
 
-    return <div className="w-full items-center flex gap-1 justify-center">
-        <div>
+    return <div className="w-full items-center flex flex-col md:flex-row gap-3 md:gap-1  justify-center">
+        <div> 
             <Menu>
-                <MenuButton as={Button} className="bg-slate-200" rightIcon={<ChevronDownIcon />}>
+                <MenuButton size={
+                    isLargerThan1200 ? "md" : isLargerThan650 ? "sm" : "xs"
+                } as={Button} className="bg-slate-200" rightIcon={<ChevronDownIcon />}>
                     Rows Per Page: {rowsPerPage}
                 </MenuButton>
-                <MenuList className="p-3">
+                <MenuList className="p-1 md:p-3">
                     {[...Array(5).keys()].map((item, index) => <MenuItem onClick={() => setRowsPerPage((item + 1) * defaultRowsPerPage)} className="hover:bg-slate-100 w-full flex items-center justify-center rounded-lg" key={item}>{(item + 1) * defaultRowsPerPage}</MenuItem>)}
                 </MenuList>
             </Menu>
         </div>
+        <div className="flex gap-2">
         <Arrows className="w-7 h-7 flex rounded cursor-pointer rotate-90 items-center justify-center hover:bg-sky-400" onClick={() => { currentPage === 0 ? null : handleClickPaginationArrows("left") }} />
-        <div className="flex gap-2  ">
+        <div className="flex gap-2 ">
             {/* creates array of numbers based on totalPages */}
             {[...Array(totalPages).keys()].map((number, i) => {
                 return (maxItemsBetweenArrows === 0 ?
@@ -80,5 +85,6 @@ export default function Paginations({ rows, setCurrentRow, defaultRowsPerPage, d
             }
         </div>
         <Arrows className="w-7 h-7 rounded cursor-pointer flex items-center justify-center rotate-[270deg] hover:bg-sky-400" onClick={() => { handleClickPaginationArrows('right') }} />
+        </div>
     </div >
 }
