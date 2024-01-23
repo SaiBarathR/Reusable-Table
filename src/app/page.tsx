@@ -1,10 +1,12 @@
-import Image from 'next/image'
+'use client'
+
+import { Box } from '@chakra-ui/react';
 import OrderDetails from './Components/OrderDetails'
 
 export default function Home() {
   return (
-    <div className="w-full h-screen flex justify-center items-start">
+    <Box className='flex flex-col w-full p-6 h-full items-center justify-center'>
       <OrderDetails />
-    </div >
+    </Box>
   )
 }

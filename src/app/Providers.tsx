@@ -1,19 +1,7 @@
 'use client'
 
-import { CacheProvider } from '@chakra-ui/next-js'
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import { themeConfig } from '../config/theme.config'
+import { ChakraProvider } from '@chakra-ui/react'
 
-export function Providers({
-    children
-}: {
-    children: React.ReactNode
-}) {
-    return (
-        <CacheProvider>
-            <ChakraProvider theme={themeConfig}>
-                {children}
-            </ChakraProvider>
-        </CacheProvider>
-    )
+export function Providers({ children }: { children: React.ReactNode }) {
+    return <ChakraProvider>{children}</ChakraProvider>
 }

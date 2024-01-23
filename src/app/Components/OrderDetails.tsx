@@ -1,71 +1,42 @@
 'use client'
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import CustomTable from "./Table/CustomTable";
-import { orderDetailsTableRows } from "../service/tableService";
-import { useToast } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Loading from "../loading";
+import useOrderDetails from "../hooks/useOrderDetails";
+import { rowsObject } from "../constants";
 
 export default function OrderDetails() {
-    //used for notification when api is fetched
-    const toast = useToast()
-    const [loading, setLoading] = useState(true);
-    //row data for the table
-    const [rowData, setRowData] = useState<any>([]);
+    
+    const { loading, error, rowData } = useOrderDetails()    
+    
     //column data with column header name as 'name' and real name as 'label' with option to- 
     //add cellrenderer to add custom react element inside the row of a partical column    
     const columnsData = useMemo<any>(() => [
-        { label: 'timeStamp', name: 'TimeStamp' }, { label: 'purchaseId', name: 'Purchase Id' }, { label: 'mail', name: 'Mail' }, { label: 'name', name: 'Name' }, { label: 'source', name: 'Source' },
+        { label: 'timeStamp', name: 'TimeStamp' }, { label: 'purchaseId', name: 'Purchase Id' }, { label: 'mail', name: 'Mail' }, { label: 'name', name: 'Name' }, 
         { label: 'status', name: 'Status', cellRenderer: StatusRenderer }, { label: 'select', name: 'Select', cellRenderer: CustomSelect }], []);
 
-    //function to get row data from api
-    async function getOrderRowData() {
-        const resp = await orderDetailsTableRows();
-        try {
-            if (Object.keys(resp).includes('orderDetailRows')) {
-                setRowData(resp.orderDetailRows)
-                toast({
-                    title: `Successfully fetched order details row data`,
-                    isClosable: true,
-                    position: 'top',
-                    status: "success"
-                })
-                setLoading(false);
-            }
-            else {
-                console.log("unable to fetch order details rows")
-                setLoading(false);
-            }
-        }
-        catch (err) {
-            console.log(err + 'unable to fetch orderdetails api');
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        getOrderRowData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     //Custom cellrenderer react component for column 'status' to render button in the row for the column
     //Cellrenderer gets a callback value with value[0] is column name value[1] is current row value
-    function CustomSelect(value: any[]) {
-        return <button className="bg-gray-300 p-1 font-medium text-black rounded-lg min-w-[60px] hover:scale-110">{value[1]}</button>
+    function CustomSelect(value: any) {
+        return <button className="bg-gray-300 p-1 font-medium text-black rounded-lg min-w-[60px] hover:scale-110">{value.select}</button>
     }
 
     //Custom cellrenderer react component for column 'select' to render button in the row for the column
     //Cellrenderer gets a callback value with value[0] is column name value[1] is current row value
     //Depending on row value different color chip is provided for the row value
-    function StatusRenderer(value: any[]) {
-        const backgroundColor = value[1] === 'failed' ? 'bg-red-200' : value[1] === 'waiting' ? 'bg-yellow-100' : 'bg-green-200';
-        return <div className={`flex items-center p-1 capitalize text-gray-800 font-medium text-sm rounded-lg justify-center min-w-[60px] ${backgroundColor}`}>{value[1]}</div>
+    function StatusRenderer(value: any) {
+        const backgroundColor = value.status === 'failed' ? 'bg-red-200' : value.status === 'waiting' ? 'bg-yellow-100' : 'bg-green-200';
+        return <div className={`flex items-center p-1 capitalize text-gray-800 font-medium text-sm rounded-lg justify-center min-w-[60px] ${backgroundColor}`}>{value.status}</div>
     }
 
     return (
-        <div className="text-black p-12">
+        <Box className={`w-full ${!loading ?? 'h-screen'} flex justify-center items-center`} >
             {loading ? <Loading /> :
                 <CustomTable
+                    error={error}                    
                     headers={columnsData} //column data
                     row={rowData}// row data
                     //Optional Props
@@ -78,7 +49,7 @@ export default function OrderDetails() {
                     //filterRowsByColumnGroup Format: [ { label: 'API name or local name', name: 'display name for header', cellRenderer: <react component>, optional, use only if you need to add components in row  }, { label: 'API name or local name', name: 'display name for header'} ]
                     filterRowsByColumnGroup={[{ column: 'status', values: ['failed', 'waiting', 'paid'] }, { column: 'name', values: ['Sai Barath', 'Lokesh'] }, { column: 'purchaseId', values: ['25602'] }]}
                 />}
-        </div>
+        </Box>
     )
 }
 
