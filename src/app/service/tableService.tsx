@@ -1,4 +1,4 @@
 export async function orderDetailsTableRows(signal: AbortSignal) {
-    const response = await fetch('https://dev-9372591m7y156c7.api.raw-labs.com/mock', { signal });
+    const response = await fetch('https://mocki.io/v1/2ffd29c7-1c33-476b-a191-0b7d049c0a2d', { signal });
     return response.json();
 }

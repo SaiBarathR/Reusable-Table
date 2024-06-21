@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import useAlerts from './useAlerts';
 import { orderDetailsTableRows } from '../service/tableService';
+import { rowsObject } from '../constants';
 
 export default function useOrderDetails() {
 
@@ -8,8 +9,16 @@ export default function useOrderDetails() {
     const { errorToast, successToast } = useAlerts();
     const [loading, setLoading] = useState(true);
     //row data for the table
-    const [rowData, setRowData] = useState([]);
+    const [rowData, setRowData] = useState<any>([]);
     const [error, setErrors] = useState<boolean | string>(false);
+
+    const useDummyData = () => {
+        setLoading(false);
+        setErrors("unable to fetch order details rows")        
+        const rows = rowsObject;
+        setRowData(rows);
+        errorToast("Using dummy data since api got timeouted")
+    }
 
     //function to get row data from api
     async function getOrderRowData(signal: AbortSignal) {
@@ -29,16 +38,12 @@ export default function useOrderDetails() {
             }
             else {
                 console.log("unable to fetch order details rows")
-                setLoading(false);
-                setErrors("unable to fetch order details rows")
-                errorToast("unable to fetch order details rows")
+                useDummyData();                
             }
         }
         catch (err) {
-            console.log(err + 'unable to fetch orderdetails api');
-            setLoading(false);
-            setErrors("unable to fetch order details api")
-            errorToast("unable to fetch order details api")
+            console.log(err + 'unable to fetch orderdetails api');  
+            useDummyData();            
         }
     }
 
