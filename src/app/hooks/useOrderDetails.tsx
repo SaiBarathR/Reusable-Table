@@ -12,7 +12,7 @@ export default function useOrderDetails() {
     const [rowData, setRowData] = useState<any>([]);
     const [error, setErrors] = useState<boolean | string>(false);
 
-    const useDummyData = () => {
+    const setDummyData = () => {
         setLoading(false);
         setErrors("unable to fetch order details rows")        
         const rows = rowsObject;
@@ -38,12 +38,12 @@ export default function useOrderDetails() {
             }
             else {
                 console.log("unable to fetch order details rows")
-                useDummyData();                
+                setDummyData();                
             }
         }
         catch (err) {
             console.log(err + 'unable to fetch orderdetails api');  
-            useDummyData();            
+            setDummyData();            
         }
     }
 
