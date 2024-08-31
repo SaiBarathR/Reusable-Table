@@ -98,15 +98,29 @@ export default function CustomTable({ headers, error, row, filterRowsByColumnGro
 
     //renders rows
     function RowRenderer({ rows }: rowProps) {
+        const headerKeysLength = headerKeys.length;
+        {/* //if cellRenderer is present then a callback of cellrender is fired to provide the cuurent row value to the cell renderer present in flow component to render component based on row values*/ }
         return (
             <Tbody>
-                {rows.map((row: any, index: number) => <Tr className={`${index % 2 !== 0 && 'bg-[#EDF0F2]'} border-radius-table-row`} key={index}>
-                    {/* //if cellRenderer is present then a callback of cellrender is fired to provide the cuurent row value to the cell renderer present in flow component to render component based on row values*/}
-                    {Object.entries(row).map((value, subIndex) => {
-                        return headerKeys.includes(value[0]) && <Td sx={getStyles(value)} whiteSpace={"initial"} key={value[0] + subIndex}> {cellRenderList.includes(value[0]) ? headers[cellRenderList.indexOf(value[0])].cellRenderer(row) : value[1]}</Td>
-                    })}
-                </Tr>)
-                }
+                {rows.map((row: any, index: number) => {
+                    let tableRow = Object.entries(row);
+                    const isRowsMissing = headerKeysLength > Object.keys(row).length;
+                    if (isRowsMissing) {
+                        const missingRows = headerKeys.filter((header: any) => !Object.keys(row).includes(header));
+                        missingRows.forEach((header: any) => {
+                            const headerIndex = headerKeys.indexOf(header);
+                            tableRow.splice(headerIndex, 0, [header, ""]);
+                        })
+                    }
+                    return (
+                        <Tr className={`${index % 2 !== 0 && 'bg-[#EDF0F2]'} border-radius-table-row`} key={index}>
+                            {tableRow.map((value, subIndex) => {
+                                console.log(value)
+                                return headerKeys.includes(value[0]) && <Td sx={getStyles(value)} whiteSpace={"initial"} key={value[0] + subIndex}> {cellRenderList.includes(value[0]) ? headers[cellRenderList.indexOf(value[0])].cellRenderer(row) : value[1]}</Td>
+                            })}
+                        </Tr>
+                    )
+                })}
             </Tbody>
         )
     }
