@@ -33,7 +33,7 @@ export default function OrderDetails() {
     }
 
     return (
-        <Box className={`w-full ${!loading ?? 'h-screen'} flex justify-center items-center`} >
+        <Box className={`w-full ${loading ? 'h-screen' : ''} flex justify-center items-center`} >
             {loading ? <Loading /> :
                 <CustomTable
                     error={error}                    

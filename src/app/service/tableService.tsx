@@ -1,4 +1,5 @@
+//mock order rows are served from public/orders.json, relative url so it works under a basePath too
 export async function orderDetailsTableRows(signal: AbortSignal) {
-    const response = await fetch('https://mocki.io/v1/2ffd29c7-1c33-476b-a191-0b7d049c0a2d', { signal });
+    const response = await fetch('orders.json', { signal });
     return response.json();
 }
