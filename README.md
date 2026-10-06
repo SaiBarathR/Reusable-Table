@@ -1,5 +1,11 @@
 This is a [Next-js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Live Demo
+
+**https://unrivaled-lebkuchen-a4822b.netlify.app**
+
+Mirror on GitHub Pages: https://saibarathr.github.io/Reusable-Table/
+
 ## Feature List / Optional Props
 
 **sortable**: Boolean, To sort columns by ascending or descending when clicking the column name. This won't work for cell renderer components inside a column. Only for string and numbers
@@ -96,8 +102,9 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app is a static export (`output: "export"`), built with `npm run build` into `out/`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Netlify**: https://unrivaled-lebkuchen-a4822b.netlify.app - deploys automatically on every push to `main` using `netlify.toml`.
+- **GitHub Pages**: https://saibarathr.github.io/Reusable-Table/ - deployed by `.github/workflows/nextjs.yml`.
