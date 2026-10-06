@@ -2,7 +2,7 @@ This is a [Next-js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Live Demo
 
-**https://unrivaled-lebkuchen-a4822b.netlify.app**
+**https://reusable-custom-table.netlify.app**
 
 Mirror on GitHub Pages: https://saibarathr.github.io/Reusable-Table/
 
@@ -106,5 +106,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The app is a static export (`output: "export"`), built with `npm run build` into `out/`.
 
-- **Netlify**: https://unrivaled-lebkuchen-a4822b.netlify.app - deploys automatically on every push to `main` using `netlify.toml`.
+- **Netlify**: https://reusable-custom-table.netlify.app - deploys automatically on every push to `main` using `netlify.toml`.
 - **GitHub Pages**: https://saibarathr.github.io/Reusable-Table/ - deployed by `.github/workflows/nextjs.yml`.
